@@ -69,7 +69,7 @@ count = 0
 for url in hrefs:
     pageProcessor(url)
     count = count +1
-    print(count)
+    print(count,flush=True)
     
 
 
