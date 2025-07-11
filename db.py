@@ -9,6 +9,7 @@ client = MongoClient(uri,server_api=ServerApi('1'))
 
 db = client.vibenews_db
 articles_collection:Collection = db["vibenews_articles"]
+new_articles_collection:Collection = db["articles_tags"]
 
 try:
     client.admin.command('ping')
