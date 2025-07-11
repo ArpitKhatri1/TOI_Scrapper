@@ -1,4 +1,3 @@
-
 name: Daily Scraper
 
 on:
@@ -24,13 +23,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Create .env file for secrets
+        run: |
+          echo "GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> .env
+          echo "MONGODB_USER=${{ secrets.MONGODB_USER }}" >> .env
+          echo "MONGODB_PASSWORD=${{ secrets.MONGODB_PASSWORD }}" >> .env
+
       - name: Run scraper and save output
         run: |
           python main.py | tee scraper-log-$(date +'%Y-%m-%d').txt
-        env:
-          GOOGLE_API_KEY: ${{secrets.GOOGLE_API_KEY}}
-          MONGODB_PASSWORD: ${{secrets.MONGODB_PASSWORD}}
-          MONGODB_USER: ${{secrets.MONGODB_USER}}
 
       - name: Upload logs as artifact
         uses: actions/upload-artifact@v4
