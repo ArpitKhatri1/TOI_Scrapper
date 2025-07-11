@@ -27,6 +27,10 @@ jobs:
       - name: Run scraper and save output
         run: |
           python main.py | tee scraper-log-$(date +'%Y-%m-%d').txt
+        env:
+          GOOGLE_API_KEY: ${{secrets.GOOGLE_API_KEY}}
+          MONGODB_PASSWORD: ${{secrets.MONGODB_PASSWORD}}
+          MONGODB_USER: ${{secrets.MONGODB_USER}}
 
       - name: Upload logs as artifact
         uses: actions/upload-artifact@v4
